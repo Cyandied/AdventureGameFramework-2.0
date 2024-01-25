@@ -1,5 +1,6 @@
-package Main;
+package UIelems;
 
+import Main.GameMaster;
 import Util.SQLiteJDBC;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,6 +35,9 @@ public class GameChoicePanel extends Pane {
         for(String game : games) {
             games_choices.getItems().add(game);
         }
+
+        games_choices.setValue(games[0]);
+
         Text text = new Text("Select a game:");
         text.setFont(new Font("Cambria",20));
         text.setTextAlignment(TextAlignment.CENTER);
@@ -57,6 +61,7 @@ public class GameChoicePanel extends Pane {
                 for(String game : games) {
                     games_choices.getItems().add(game);
                 }
+                games_choices.setValue(games[0]);
             }
         });
 
@@ -64,7 +69,7 @@ public class GameChoicePanel extends Pane {
             public void handle(ActionEvent actionEvent) {
                 String game = games_choices.getValue().toString();
                 if(!game.isEmpty()) {
-                    gm.init_game(prim, games_choices.getValue().toString());
+                    gm.init_game(games_choices.getValue().toString());
                     start.close();
                 }
             }
@@ -92,8 +97,8 @@ public class GameChoicePanel extends Pane {
     }
 
     private boolean test_SQL_connection(String game) {
-        SQLiteJDBC sql = new SQLiteJDBC(game);
-        return sql.connetion_status;
+        SQLiteJDBC sql = new SQLiteJDBC(game,game);
+        return sql.connection_status;
     }
 
     private boolean check_if_background_folder(String game) {
