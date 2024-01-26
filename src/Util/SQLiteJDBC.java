@@ -33,29 +33,31 @@ public class SQLiteJDBC {
             if(res != null){
                 res.close();
             }
-            System.err.println(e);
+            System.err.println(e.getMessage());
             throw e;
         }
     }
 
     public SQLResult get_database(String table){
         ResultSet res = null;
+        String query = "select * from " + table + ";";
         try {
-            res = c.createStatement().executeQuery("select * from " + table + ";");
+            res = c.createStatement().executeQuery(query);
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e + " for query = " + query);
         }
         return new SQLResult(res);
     }
 
     public SQLResult get_row_from_db(String table, int row) {
         ResultSet res = null;
+        String query ="select * from " + table + " where rowid = " + row + ";";
         try {
-            res = c.prepareStatement("select * from " + table + " where rowid = " + row + ";").executeQuery();
+            res = c.prepareStatement(query).executeQuery();
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e + " for query = " + query);
             System.exit(0);
         }
         return new SQLResult(res);
@@ -63,11 +65,12 @@ public class SQLiteJDBC {
 
     public SQLResult get_row_from_db(String table, String id) {
         ResultSet res = null;
+        String query ="select * from " + table + " where id = '" + id + "';";
         try {
-            res = c.prepareStatement("select * from " + table + " where id = '" + id + "';").executeQuery();
+            res = c.prepareStatement(query).executeQuery();
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e + " for query = " + query);
             System.exit(0);
         }
         return new SQLResult(res);
@@ -80,54 +83,67 @@ public class SQLiteJDBC {
             }
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void update_db(String table, String column, String new_data){
+        String update = "UPDATE " + table + " SET " + column + " = '" + new_data + "';";
+        try {
+            c.createStatement().executeUpdate(update);
+        } catch (Exception e) {
+            System.err.println(e.getMessage() + " for update db!");
+            System.err.println("\t" + update);
         }
     }
 
     public void update_db(String table, String column, boolean new_data){
+        String update = "UPDATE " + table + " SET " + column + " = " + new_data + ";";
         try {
-            c.createStatement().executeQuery("UPDATE " + table + " SET " + column + " = " + new_data);
+            c.createStatement().executeUpdate(update);
         } catch (Exception e) {
-            System.err.println(e);
-        }
-    }
-    public void update_db(String table, String column, String new_data){
-        try {
-            c.createStatement().executeQuery("UPDATE " + table + " SET " + column + " = " + new_data + ";");
-        } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage() + " for update db!");
+            System.err.println("\t" + update);
         }
     }
 
     public void update_db(String table, String column, int new_data){
+        String update = "UPDATE " + table + " SET " + column + " = " + new_data + ";";
         try {
-            c.createStatement().executeQuery("UPDATE " + table + " SET " + column + " = " + new_data + ";");
+            c.createStatement().executeUpdate(update);
         } catch (Exception e) {
-            System.err.println(e);
-        }
-    }
-
-    public void update_db(String table, String column, String row, boolean new_data){
-        try {
-            c.createStatement().executeQuery("UPDATE " + table + " SET " + column + " = " + new_data + " WHERE " + column + " = " + row + ";");
-        } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage() + " for update db!");
+            System.err.println("\t" + update);
         }
     }
 
     public void update_db(String table, String column, String row, String new_data){
+        String update = "UPDATE " + table + " SET " + column + " = '" + new_data + "' WHERE id = '" + row + "';";
         try {
-            c.createStatement().executeQuery("UPDATE " + table + " SET " + column + " = " + new_data + " WHERE " + column + " = " + row + ";");
+            c.createStatement().executeUpdate(update);
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage() + " for update db!");
+            System.err.println("\t" + update);
         }
     }
 
     public void update_db(String table, String column, String row, int new_data){
+        String update = "UPDATE " + table + " SET " + column + " = " + new_data + " WHERE id = '" + row + "';";
         try {
-            c.createStatement().executeQuery("UPDATE " + table + " SET " + column + " = " + new_data + " WHERE " + column + " = " + row + ";");
+            c.createStatement().executeUpdate(update);
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage() + " for update db!");
+            System.err.println("\t" + update);
+        }
+    }
+
+    public void update_db(String table, String column, String row, boolean new_data){
+        String update = "UPDATE " + table + " SET " + column + " = " + new_data + " WHERE id = '" + row + "';";
+        try {
+            c.createStatement().executeUpdate(update);
+        } catch (Exception e) {
+            System.err.println(e.getMessage() + " for update db!");
+            System.err.println("\t" + update);
         }
     }
 

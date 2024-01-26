@@ -16,7 +16,7 @@ public class SQLResult {
             result = res.getString(colum_name);
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return result;
     }
@@ -27,7 +27,7 @@ public class SQLResult {
             result = res.getBoolean(colum_name);
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return result;
     }
@@ -38,7 +38,7 @@ public class SQLResult {
             result = res.getInt(colum_name);
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return result;
     }

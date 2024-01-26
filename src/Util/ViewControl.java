@@ -32,7 +32,7 @@ public class ViewControl {
         if(map.locations != null){
             for(Location location : map.locations) {
                 if (location.shown) {
-                    overlay.put_label(location.id, location.x_y);
+                    overlay.put_label(location);
                 }
             }
             overlay.place_labels();

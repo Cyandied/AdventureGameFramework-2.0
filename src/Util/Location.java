@@ -10,9 +10,9 @@ public class Location {
     public boolean completed;
     public boolean visited;
     public Happening refer_happening;
-    public String map_location;
+    public String[] map_locations;
     public boolean shown;
-
+    public boolean secret;
     public int[] x_y = new int[2];
 
     public Location(SQLiteJDBC database, String id) {
@@ -25,19 +25,24 @@ public class Location {
         else refer_special = null;
         completed = location.get_bool("completed");
         visited = location.get_bool("visited");
-        if(location.get_string("refer_special") != null) {
+        if(location.get_string("refer_happening") != null) {
             refer_happening = new Happening(database, location.get_string("refer_happening"));
         }
         else refer_happening = null;
-        map_location = location.get_string("map_location");
+        map_locations = location.get_string("map_location").split(":");
         shown = location.get_bool("shown");
+        secret = location.get_bool("secret");
         x_y[0] = location.get_int("x");
         x_y[1] = location.get_int("y");
     }
 
     public String activate_location(Player p, SQLiteJDBC database) {
         database.update_db("locations","visited",this.id,true);
-        return "";
+        String happening_flavour = refer_happening.activate_happening(p,database);
+        if(happening_flavour != null) {
+            return flavour + "\n" + happening_flavour;
+        }
+        return flavour;
     }
 
 }

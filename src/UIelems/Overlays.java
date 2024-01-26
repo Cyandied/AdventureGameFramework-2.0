@@ -1,5 +1,6 @@
 package UIelems;
 
+import Util.Location;
 import Util.ViewControl;
 import javafx.scene.layout.Pane;
 
@@ -38,8 +39,8 @@ public class Overlays extends Pane {
         }
     }
 
-    public void put_label(String text, int[] xy) {
-        labels.put(text, new Label(text, xy[0],xy[1], viewc));
+    public void put_label(Location loc) {
+        labels.put(loc.id, new Label(loc, viewc));
     }
 
     public void void_arrows() {

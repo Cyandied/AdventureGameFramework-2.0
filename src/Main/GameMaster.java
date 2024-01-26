@@ -1,6 +1,7 @@
 package Main;
 
 import UIelems.GameChoicePanel;
+import UIelems.InventoryView;
 import UIelems.OutputField;
 import Util.InputControl;
 import Util.SQLResult;
@@ -31,14 +32,16 @@ public class GameMaster extends Application {
     public OutputField out_field;
     public ViewControl viewc;
 
+    public InventoryView inv;
+
     public SQLiteJDBC database;
     public InputHandler inh;
     Stage primary_stage;
 
     public static String game;
-    int start_width = 1100;
+    int start_width = 1000;
     int sys_padding_width = 0;
-    int start_height = 900;
+    int start_height = 700;
     int sys_padding_height = 0;
     boolean first_redraw = true;
 
@@ -46,6 +49,7 @@ public class GameMaster extends Application {
         out_field = new OutputField();
         inc = new InputControl(this);
         viewc = new ViewControl(this);
+        inv = new InventoryView(this);
         gp = new GamePanel();
     }
 
@@ -78,7 +82,8 @@ public class GameMaster extends Application {
                 inc.in_field,
                 out_field,
                 viewc.view_f,
-                viewc.overlay
+                viewc.overlay,
+                inv
         ), start_width, start_height);
         scene.setFill(new Color( 0.2, 0.2, 0.2, 1.0));
 
@@ -113,7 +118,7 @@ public class GameMaster extends Application {
             img.setImage(title_screen);
         } catch (Exception e) {System.err.println(e);}
 
-        pane.resize(1960*0.7,1050*0.7);
+        pane.resize(1960*0.5,1050*0.5);
 
         img.setPreserveRatio(true);
         img.setFitWidth(pane.getWidth());
@@ -151,16 +156,16 @@ public class GameMaster extends Application {
         });
 
         start_game.setPrefWidth(pane.getWidth()/2);
-        start_game.setFont(new Font("Cambria",30));
-        start_game.relocate(pane.getWidth()/4, 360);
+        start_game.setFont(new Font("Cambria",25));
+        start_game.relocate(pane.getWidth()/4, 260);
 
         saved_game.setPrefWidth(pane.getWidth()/2);
-        saved_game.setFont(new Font("Cambria",30));
-        saved_game.relocate(pane.getWidth()/4, 460);
+        saved_game.setFont(new Font("Cambria",25));
+        saved_game.relocate(pane.getWidth()/4, 330);
 
         exit_game.setPrefWidth(pane.getWidth()/2);
-        exit_game.setFont(new Font("Cambria",30));
-        exit_game.relocate(pane.getWidth()/4, 560);
+        exit_game.setFont(new Font("Cambria",25));
+        exit_game.relocate(pane.getWidth()/4, 400);
 
         pane.getChildren().addAll(img,start_game, saved_game,exit_game);
 
@@ -193,9 +198,12 @@ public class GameMaster extends Application {
             sys_padding_width = (int)primary_stage.getWidth() - start_width;
             sys_padding_height = (int)primary_stage.getHeight() - start_height;
         }
-
         int width = (int)primary_stage.getWidth();
         int height = (int)primary_stage.getHeight();
+        if((double) width/height < 1.7) {
+            width = (int) (height*1.7);
+        }
+        primary_stage.setWidth(width);
 
         gp.draw(width - sys_padding_width,height - sys_padding_height);
     }
