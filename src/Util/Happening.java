@@ -33,6 +33,10 @@ public class Happening {
 
     public Happening(SQLiteJDBC database, String id) {
         SQLResult happening = database.get_row_from_db("happening",id);
+        if(happening.get_string("id") == null){
+            System.err.println("Tried to load happening that does not exist!\nError encountered with happening id: " + id);
+            System.exit(1);
+        }
         this.id = happening.get_string("id");
         flavour = happening.get_string("flavour");
         give_items = init_items(happening.get_string("give_items"),database);
@@ -65,7 +69,7 @@ public class Happening {
         String[] item_ids_arr = item_ids.split(":");
         Item[] items = new Item[item_ids_arr.length];
         for (int i = 0; i < item_ids_arr.length; i++) {
-            items[i] = new Item(database.get_row_from_db("items",item_ids_arr[i]));
+            items[i] = new Item(database.get_row_from_db("items",item_ids_arr[i]),item_ids_arr[i]);
         }
         return items;
     }
@@ -125,7 +129,7 @@ public class Happening {
         TextField txt = new TextField();
         Pane pane = new Pane();
         try {
-            FileInputStream in_stream = new FileInputStream("src/Res/Global/"+code_type+".png");
+            FileInputStream in_stream = new FileInputStream("Res/Global/"+code_type+".png");
             Image img = new Image(in_stream);
             imgv.setImage(img);
         }

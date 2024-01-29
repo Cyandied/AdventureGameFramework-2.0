@@ -8,12 +8,15 @@ import java.io.FileInputStream;
 public class ViewField extends ImageView {
     public void set_scene(String background, String game){
         try {
-            String bg_src = "src/res/Games/"+game+"/Backgrounds/";
+            String bg_src = "Res/Games/"+game+"/Backgrounds/";
             FileInputStream in_stream = new FileInputStream(bg_src + background);
             Image img = new Image(in_stream);
 
             this.setImage(img);
-        } catch (Exception e) {System.err.println(e);}
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     public void draw(int width, int height, int pos_w, int pos_h) {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="test" uuid="fbe5cb65-6300-4ad4-8ac7-8331e627821b">
+    <data-source source="LOCAL" name="thebunker" uuid="ffe41d32-3d39-44b3-9358-8e746966fa4a">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Thea-\Documents\Java\AdventureGameFramework-2.0\src\Res\Games\Test\test.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\Documents2.0\Java\AdventureGameFramework\Res\Games\TheBunker\thebunker.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
@@ -13,23 +13,11 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="template" uuid="077ac67f-247e-426f-b4f6-2a22f6f9b300">
+    <data-source source="LOCAL" name="test" uuid="55a12eb2-579a-49eb-a552-f89dbadef32f">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Thea-\Documents\Java\AdventureGameFramework-2.0\src\template.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.43.0/org/xerial/sqlite-jdbc/3.43.0.0/sqlite-jdbc-3.43.0.0.jar</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="thebunker" uuid="cb2f266b-030f-4246-8cd3-d4e2b9dcb0e0">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Thea-\Documents\Java\AdventureGameFramework-2.0\src\Res\Games\TheBunker\thebunker.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\Documents2.0\Java\AdventureGameFramework\Res\Games\Test\test.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

@@ -13,6 +13,8 @@ public class InventoryView extends StackPane {
 
     Pane scroll;
     InputControl inc;
+
+    String font;
     public InventoryView(GameMaster gm) {
         this.inc = gm.inc;
         scroll = new Pane();
@@ -23,12 +25,16 @@ public class InventoryView extends StackPane {
     public void update_inv_view(Item[] items) {
         scroll.getChildren().removeAll(scroll.getChildren());
         for(int i = 0; i < items.length; i++) {
-            scroll.getChildren().add(items[i].get_item_object(inc,this.getWidth() - 20, (int) ((this.getWidth() - 20)*i + 10*(i+1))));
+            scroll.getChildren().add(items[i].get_item_object(inc,this.getWidth() - 20, (int) ((this.getWidth() - 20)*i + 10*(i+1)),font));
         }
     }
 
     public void draw(int width, int height, int pos_w, int pos_h) {
         this.setPrefSize(width,height);
         this.relocate(pos_w, pos_h);
+    }
+
+    public void set_font(String font){
+        this.font = font;
     }
 }

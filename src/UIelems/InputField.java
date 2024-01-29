@@ -36,6 +36,10 @@ public class InputField extends TextField {
         this.relocate(pos_w, pos_h);
     }
 
+    public void set_font(String font) {
+        this.setFont(new Font(font,20));
+    }
+
     public void clear(){
         this.setText(" > ");
     }

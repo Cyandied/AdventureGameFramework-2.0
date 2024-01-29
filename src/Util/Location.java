@@ -18,14 +18,16 @@ public class Location {
 
     public Location(SQLiteJDBC database, String id) {
         SQLResult location = database.get_row_from_db("locations",id);
+        if(location.get_string("id") == null){
+            System.err.println("One or more locations referenced in map/locations do NOT exist!\nError encountered with location id: " + id);
+            System.exit(1);
+        }
         this.id = location.get_string("id");
         name = location.get_string("name");
         flavour = location.get_string("flavour");
         completed = location.get_bool("completed");
         visited = location.get_bool("visited");
-        if(location.get_string("refer_happening").equals("000")){
-            refer_happening = null;
-        } else {
+        if(location.get_string("refer_happening") != null){
             refer_happening = new Happening(database, location.get_string("refer_happening"));
         }
         map_locations = location.get_string("map_location").split(":");

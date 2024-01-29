@@ -39,6 +39,7 @@ public class GameMaster extends Application {
     Stage primary_stage;
 
     public static String game;
+    public String font;
     int start_width = 1000;
     int sys_padding_width = 0;
     int start_height = 700;
@@ -72,6 +73,8 @@ public class GameMaster extends Application {
         database = new SQLiteJDBC(game,"saved");
 
         SQLResult meta = database.get_database("meta");
+        font = meta.get_string("font");
+        feed_font();
 
         primary_stage.setTitle(meta.get_string("game_name"));
         primary_stage.setResizable(true);
@@ -113,7 +116,7 @@ public class GameMaster extends Application {
         }
 
         try {
-            FileInputStream in_stream = new FileInputStream("src/res/Games/"+game+"/Backgrounds/" + meta.get_string("title_screen_file"));
+            FileInputStream in_stream = new FileInputStream("Res/Games/"+game+"/Backgrounds/" + meta.get_string("title_screen_file"));
             Image title_screen = new Image(in_stream);
             img.setImage(title_screen);
         } catch (Exception e) {System.err.println(e);}
@@ -156,15 +159,15 @@ public class GameMaster extends Application {
         });
 
         start_game.setPrefWidth(pane.getWidth()/2);
-        start_game.setFont(new Font("Cambria",25));
+        start_game.setFont(new Font(font,25));
         start_game.relocate(pane.getWidth()/4, 260);
 
         saved_game.setPrefWidth(pane.getWidth()/2);
-        saved_game.setFont(new Font("Cambria",25));
+        saved_game.setFont(new Font(font,25));
         saved_game.relocate(pane.getWidth()/4, 330);
 
         exit_game.setPrefWidth(pane.getWidth()/2);
-        exit_game.setFont(new Font("Cambria",25));
+        exit_game.setFont(new Font(font,25));
         exit_game.relocate(pane.getWidth()/4, 400);
 
         pane.getChildren().addAll(img,start_game, saved_game,exit_game);
@@ -175,9 +178,9 @@ public class GameMaster extends Application {
     }
 
     private static void make_saved_game(boolean overwrite){
-        Path source = Path.of("src/Res/Games/" + game + "/" + game.toLowerCase() + ".sqlite");
-        Path target = Path.of("src/Res/Games/" + game + "/saved.sqlite");
-        File f = new File("src/Res/Games/" + game + "/saved.sqlite");
+        Path source = Path.of("Res/Games/" + game + "/" + game.toLowerCase() + ".sqlite");
+        Path target = Path.of("Res/Games/" + game + "/saved.sqlite");
+        File f = new File("Res/Games/" + game + "/saved.sqlite");
         if(!f.exists() || overwrite){
             try {
                 Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
@@ -211,8 +214,15 @@ public class GameMaster extends Application {
 
     }
 
-    public void start_game() {
-        launch();
+    private void feed_font(){
+        out_field.set_font(font);
+        inc.set_font(font);
+        viewc.set_font(font);
+        inv.set_font(font);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }

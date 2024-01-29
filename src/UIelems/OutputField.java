@@ -11,8 +11,9 @@ public class OutputField extends TextArea {
         this.setEditable(false);
         this.setWrapText(true);
 
-        this.setFont(new Font("Cambria",20));
-
+    }
+    public void set_font(String font) {
+        this.setFont(new Font(font,20));
     }
     public void draw(int width, int height, int pos_w, int pos_h) {
         this.setPrefSize(width,height);

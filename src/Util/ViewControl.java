@@ -17,6 +17,10 @@ public class ViewControl {
         overlay = new Overlays(this);
     }
 
+    public void set_font(String font){
+        overlay.set_font(font);
+    }
+
     public void handle_click(String type,String id, String content) {
         inc.handle_click_input(type,id,content);
     }

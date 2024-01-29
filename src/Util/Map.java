@@ -19,6 +19,10 @@ public class Map {
 
     public Map(SQLiteJDBC database, String id) {
         SQLResult map = database.get_row_from_db("maps",id);
+        if(map.get_string("id") == null){
+            System.err.println("The map you tried to load does not exist!\nError encountered with map id: " + id);
+            System.exit(1);
+        }
         this.id = map.get_string("id");
         flavour = map.get_string("flavour");
         if(map.get_string("refer_special") != null) {

@@ -20,7 +20,7 @@ import java.util.List;
 
 public class GameChoicePanel extends Pane {
 
-    String games_dir = "src/Res/Games";
+    String games_dir = "Res/Games";
     String[] games;
     ChoiceBox games_choices;
     Button refresh;

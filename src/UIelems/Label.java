@@ -16,7 +16,7 @@ public class Label extends Text {
     public String text;
     public String id;
 
-    public Label(Location loc, ViewControl viewc) {
+    public Label(Location loc, ViewControl viewc,String font) {
         this.setText("?");
         this.id = loc.id;
         this.text = loc.name;
@@ -25,7 +25,7 @@ public class Label extends Text {
 
         this.setTextAlignment(TextAlignment.CENTER);
         this.setTextOrigin(VPos.CENTER);
-        this.setFont(new Font("Verdana bold",40));
+        this.setFont(new Font(font,40));
         this.setFill(Paint.valueOf("black"));
         this.setStroke(Paint.valueOf("white"));
         this.setStrokeWidth(3);

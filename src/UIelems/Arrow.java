@@ -26,7 +26,7 @@ public class Arrow extends StackPane {
         arrow.setFitHeight(height);
 
         try {
-            String arrow_src = "src/res/Global/";
+            String arrow_src = "Res/Global/";
             FileInputStream in_stream = new FileInputStream(arrow_src + direction + ".png");
             Image img = new Image(in_stream);
 

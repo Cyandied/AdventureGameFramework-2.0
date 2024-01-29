@@ -36,7 +36,7 @@ public class InputHandler {
         active_map = new Map(database, meta.get_string("start_stage"));
         if(meta.get_string("start_items") != null) {
             for (String item_id : meta.get_string("start_items").split(":")){
-                player.add_item(new Item(database.get_row_from_db("items",item_id)));
+                player.add_item(new Item(database.get_row_from_db("items",item_id),item_id));
             }
         }
         viewc.change_scene(active_map,database);

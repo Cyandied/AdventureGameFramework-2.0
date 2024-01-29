@@ -3,7 +3,6 @@ package Util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class SQLiteJDBC {
 
@@ -15,7 +14,7 @@ public class SQLiteJDBC {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:src/Res/Games/" + game + "/" + db_name.toLowerCase() + ".sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:Res/Games/" + game + "/" + db_name.toLowerCase() + ".sqlite");
             test_connection();
             connection_status = true;
         } catch (Exception e) {

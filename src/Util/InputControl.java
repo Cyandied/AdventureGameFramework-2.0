@@ -92,4 +92,8 @@ public class InputControl {
 
     }
 
+    public void set_font(String font){
+        in_field.set_font(font);
+    }
+
 }

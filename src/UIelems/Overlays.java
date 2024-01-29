@@ -17,6 +17,8 @@ public class Overlays extends Pane {
     int arrow_w = 200;
     int arrow_h = 60;
 
+    String font;
+
     ViewControl viewc;
 
     public Overlays(ViewControl viewc) {
@@ -41,7 +43,7 @@ public class Overlays extends Pane {
     }
 
     public void put_label(Location loc) {
-        labels.put(loc.id, new Label(loc, viewc));
+        labels.put(loc.id, new Label(loc, viewc,font));
     }
 
     public void void_arrows() {
@@ -103,6 +105,10 @@ public class Overlays extends Pane {
                     break;
             }
         }
+    }
+
+    public void set_font(String font){
+        this.font = font;
     }
 
 

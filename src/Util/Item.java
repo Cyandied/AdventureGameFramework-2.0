@@ -12,8 +12,12 @@ public class Item {
     public String name;
     public String flavour;
     public String[] tags;
-    public Item(SQLResult item) {
-        id = item.get_string("id");
+    public Item(SQLResult item,String id) {
+        if(item.get_string("id") == null){
+            System.err.println("Tried to load item that does not exist!\nError encountered with item id: " + id);
+            System.exit(1);
+        }
+        this.id = item.get_string("id");
         name = item.get_string("name");
         flavour = item.get_string("flavour");
         if(item.get_string("tags") != null) {
@@ -21,13 +25,13 @@ public class Item {
         } else tags = new String[0];
     }
 
-    public Button get_item_object(InputControl inc, double width,int pos_h) {
+    public Button get_item_object(InputControl inc, double width,int pos_h,String font) {
         String label = name.substring(0, Math.min(name.length(), 4));
         Button button = new Button(label);
         button.setPrefWidth(width);
         button.setPrefHeight(width);
         button.relocate(10,pos_h);
-        button.setFont(new Font("Cambria",width/4));
+        button.setFont(new Font(font,width/4));
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
