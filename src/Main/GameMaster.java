@@ -85,7 +85,7 @@ public class GameMaster extends Application {
                 viewc.overlay,
                 inv
         ), start_width, start_height);
-        scene.setFill(new Color( 0.2, 0.2, 0.2, 1.0));
+        scene.setFill(new Color( 0, 0, 0, 1.0));
 
         primary_stage.setScene(scene);
 

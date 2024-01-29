@@ -18,11 +18,10 @@ public class InventoryView extends StackPane {
         scroll = new Pane();
         this.getChildren().add(scroll);
         this.setAlignment(Pos.TOP_CENTER);
-        this.setBackground(Background.fill(new Color(0,0.5,0.6,1)));
     }
 
     public void update_inv_view(Item[] items) {
-        scroll.getChildren().removeAll();
+        scroll.getChildren().removeAll(scroll.getChildren());
         for(int i = 0; i < items.length; i++) {
             scroll.getChildren().add(items[i].get_item_object(inc,this.getWidth() - 20, (int) ((this.getWidth() - 20)*i + 10*(i+1))));
         }

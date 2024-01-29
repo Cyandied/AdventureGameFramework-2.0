@@ -22,7 +22,7 @@ public class GamePanel extends Pane {
 
         this.relocate(scene_width/2 - width/2,0);
         this.resize(width,height);
-        this.setBackground(Background.fill(new Color( 0.2, 0.2, 0.2, 1.0)));
+        this.setBackground(Background.fill(new Color( 0, 0, 0, 1.0)));
 
         this.in = in;
         this.out = out;
@@ -56,8 +56,8 @@ public class GamePanel extends Pane {
         this.relocate(scene_width/2 - width/2,0);
         this.resize(width,height);
 
-        in.draw(elem_width,in_h,padding,height - (in_h + padding));
-        out.draw(elem_width, out_h,padding,height - (in_h + out_h + padding*2));
+        out.draw(elem_width, out_h,padding,height - (out_h + padding));
+        in.draw(elem_width,in_h,padding,height - (in_h + out_h + padding*3));
         view.draw(elem_width, view_h,padding,view_pos_h);
         overlay.draw(elem_width, view_h,padding,view_pos_h);
         inv.draw(inv_w,height - padding*2,(int)elem_width + padding*2, padding);

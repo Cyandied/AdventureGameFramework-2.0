@@ -18,12 +18,12 @@ public class Arrow extends StackPane {
 
     ImageView arrow = new ImageView();
     Text label = new Text("Test");
+    boolean active = false;
 
     public Arrow(int width, int height, String direction, ViewControl viewc) {
         this.resize(width,height);
         arrow.setFitWidth(width);
         arrow.setFitHeight(height);
-        this.setCursor(Cursor.HAND);
 
         try {
             String arrow_src = "src/res/Global/";
@@ -42,8 +42,8 @@ public class Arrow extends StackPane {
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
-                    viewc.handle_click("arrow",label.getText());
+                if(mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED) && active){
+                    viewc.handle_click("arrow",label.getText(),label.getText());
                 }
             }
         });
@@ -55,8 +55,12 @@ public class Arrow extends StackPane {
     }
 
     public void set_visible(boolean visible) {
+        if(!visible){
+            this.setCursor(Cursor.DEFAULT);
+        }else this.setCursor(Cursor.HAND);
         arrow.setVisible(visible);
         label.setVisible(visible);
+        active = visible;
     }
 
     public void place(int pos_w, int pos_h) {

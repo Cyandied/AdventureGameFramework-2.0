@@ -16,6 +16,8 @@ public class InputField extends TextField {
         this.in_con = in_con;
 
         this.setFont(new Font("Cambria",20));
+        this.setText(" > ");
+        this.setStyle("-fx-text-fill: white;-fx-background-color: black;-fx-opacity: 1");
         this.setAlignment(Pos.CENTER_LEFT);
 
         this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -32,6 +34,10 @@ public class InputField extends TextField {
     public void draw(int width, int height, int pos_w, int pos_h) {
         this.setPrefSize(width,height);
         this.relocate(pos_w, pos_h);
+    }
+
+    public void clear(){
+        this.setText(" > ");
     }
 
     public boolean is_empty() {

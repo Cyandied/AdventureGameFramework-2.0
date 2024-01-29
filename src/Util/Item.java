@@ -31,7 +31,7 @@ public class Item {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                inc.handle_click_input("item",id);
+                inc.handle_click_input("item",id,name);
             }
         });
         return button;

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Player {
     SQLiteJDBC database;
@@ -20,21 +21,8 @@ public class Player {
         this.database = database;
     }
 
-    public boolean player_has_item(Item item) {
-        return inventory.contains(item);
-    }
-
     public void add_item (Item item) {
         inventory.add(item);
-        database.update_db("meta","start_items",inventory.stream().map(i -> i.id).collect(Collectors.joining(":")));
-    }
-
-    public void remove_item(Item item) {
-        for(Item item_from_inv : inventory) {
-            if(item_from_inv.id.equals(item.id)){
-                inventory.remove(item_from_inv);
-            }
-        }
         database.update_db("meta","start_items",inventory.stream().map(i -> i.id).collect(Collectors.joining(":")));
     }
 
@@ -46,11 +34,23 @@ public class Player {
         }
         return null;
     }
+    public void remove_item(Item item) {
+        List<String> temp = inventory.stream().map(i -> i.id).toList();
+        int i = temp.indexOf(item.id);
+        inventory.remove(i);
+        database.update_db("meta","start_items",inventory.stream().map(i_2 -> i_2.id).collect(Collectors.joining(":")));
+    }
     public void remove_item(Item[] items) {
         for(Item item : items) {
-            inventory.remove(item);
+            List<String> temp = inventory.stream().map(i -> i.id).toList();
+            int i = temp.indexOf(item.id);
+            inventory.remove(i);
         }
         database.update_db("meta","start_items",inventory.stream().map(i -> i.id).collect(Collectors.joining(":")));
+    }
+
+    public Item[] give_list_inv(){
+        return inventory.toArray(new Item[inventory.size()]);
     }
 
 }

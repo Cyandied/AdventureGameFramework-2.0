@@ -2,13 +2,14 @@ package Util;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public class Map {
 
     public String id;
     public String flavour;
-    public Map refer_special;
+    public String refer_special;
     public boolean use_special;
     public Location[] locations;
     public HashMap<String, String> connections_ids;
@@ -21,7 +22,7 @@ public class Map {
         this.id = map.get_string("id");
         flavour = map.get_string("flavour");
         if(map.get_string("refer_special") != null) {
-            refer_special = new Map(database, map.get_string("refer_special"));
+            refer_special = map.get_string("refer_special");
         }
         else refer_special = null;
         use_special = map.get_bool("use_special");
@@ -32,9 +33,9 @@ public class Map {
     }
 
     public Location find_location(String location_id) {
-        Optional<Location> res = Arrays.stream(locations).findAny().filter(i -> i.id.equals(location_id));
-        if (res.isPresent()) {
-            return res.get();
+        List<String> res_arr = Arrays.stream(locations).map(n -> n.id).toList();
+        if(res_arr.contains(location_id)){
+            return locations[res_arr.indexOf(location_id)];
         }
         return null;
     }

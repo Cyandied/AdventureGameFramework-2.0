@@ -1,6 +1,17 @@
 package Util;
 
 import Main.Player;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.FileInputStream;
 
 public class Happening {
 
@@ -16,7 +27,9 @@ public class Happening {
     public boolean coded;
     public String code_result;
     public String code_solution;
+    public String code_type;
     public boolean happened;
+    public String[] unlock_maps;
 
     public Happening(SQLiteJDBC database, String id) {
         SQLResult happening = database.get_row_from_db("happening",id);
@@ -38,7 +51,11 @@ public class Happening {
         coded = happening.get_bool("coded");
         code_result = happening.get_string("code_result");
         code_solution = happening.get_string("code_solution");
+        code_type = happening.get_string("code_type");
         happened = happening.get_bool("happened");
+        if(happening.get_string("unlock_maps") != null){
+            unlock_maps = happening.get_string("unlock_maps").split(":");
+        } else unlock_maps = new String[0];
     }
 
     private Item[] init_items(String item_ids, SQLiteJDBC database) {
@@ -54,13 +71,23 @@ public class Happening {
     }
 
     public String activate_happening(Player p, SQLiteJDBC database) {
-        if(happened && !repeatable){
+        if(happened && !repeatable && !coded){
             return null;
+        }
+        if(happened && coded && !repeatable){
+            if(take_code()){
+                Happening happ = new Happening(database,code_result);
+                return happ.activate_happening(p,database);
+            }
+            return flavour;
         }
         if(give_items != null) {
             for(Item item : give_items) {
                 p.add_item(item);
             }
+        }
+        if(destroy_parents && parent_items != null){
+            p.remove_item(parent_items);
         }
         for (String id : change_maps) {
             boolean use_special = database.get_row_from_db("maps",id).get_bool("use_special");
@@ -76,11 +103,58 @@ public class Happening {
                 database.update_db("maps", "locations", map_location, new_location_data);
             }
         }
+        for (String id : unlock_maps) {
+            database.update_db("maps","unlocked",id,true);
+        }
         database.update_db("happening","happened",id,true);
         if(coded) {
-            return "coded";
+            if(take_code()){
+                Happening happ = new Happening(database,code_result);
+                return happ.activate_happening(p,database);
+            }
         }
         return flavour;
+    }
+
+    private boolean take_code(){
+        final boolean[] res = {false};
+
+        Stage code_input = new Stage();
+        code_input.setTitle("Input code");
+        ImageView imgv = new ImageView();
+        TextField txt = new TextField();
+        Pane pane = new Pane();
+        try {
+            FileInputStream in_stream = new FileInputStream("src/Res/Global/"+code_type+".png");
+            Image img = new Image(in_stream);
+            imgv.setImage(img);
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        imgv.setFitWidth(300);
+        imgv.setFitHeight(300);
+        txt.resize(300,30);
+        imgv.relocate(10,10);
+        txt.relocate(10,300+20);
+        pane.resize(320,300+30+40);
+        pane.getChildren().addAll(imgv,txt);
+        code_input.setScene(new Scene(pane,320,300+30+40));
+
+        txt.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent keyEvent) {
+                if(keyEvent.getCode().equals(KeyCode.ENTER)) {
+                    String text = txt.getText().toLowerCase();
+                    if(text.equals(code_solution)){
+                        res[0] = true;
+                    }
+                    code_input.close();
+                }
+            }
+        });
+
+        code_input.showAndWait();
+        return res[0];
     }
 
 }

@@ -6,9 +6,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 
 public class ViewField extends ImageView {
-    String game = "Test";
-
-    public void set_scene(String background){
+    public void set_scene(String background, String game){
         try {
             String bg_src = "src/res/Games/"+game+"/Backgrounds/";
             FileInputStream in_stream = new FileInputStream(bg_src + background);

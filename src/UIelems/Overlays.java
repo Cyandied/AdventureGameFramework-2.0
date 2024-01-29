@@ -5,6 +5,7 @@ import Util.ViewControl;
 import javafx.scene.layout.Pane;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Overlays extends Pane {
 
@@ -33,10 +34,10 @@ public class Overlays extends Pane {
     }
 
     public void void_labels() {
-        for(String key : labels.keySet()) {
+        for(String key : labels.keySet()){
             this.getChildren().remove(labels.get(key));
-            labels.remove(key);
         }
+        labels = new HashMap<String,Label>();
     }
 
     public void put_label(Location loc) {
@@ -45,6 +46,9 @@ public class Overlays extends Pane {
 
     public void void_arrows() {
         arrow_labels.replaceAll((k, v) -> "");
+        for(String direction : arrows.keySet()) {
+            arrows.get(direction).active = false;
+        }
     }
 
     public void put_arrow(String direction, String label) {
@@ -74,7 +78,7 @@ public class Overlays extends Pane {
         double y_scale = (double) height /divisions;
         for(String key : labels.keySet()) {
             Label label = labels.get(key);
-            label.relocate(x_scale*label.x,y_scale*label.y);
+            label.relocate(x_scale*label.x+10,y_scale*label.y);
         }
     }
 

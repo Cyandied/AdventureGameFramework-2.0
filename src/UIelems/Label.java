@@ -13,11 +13,13 @@ import javafx.scene.text.*;
 public class Label extends Text {
 
     public int x,y;
-    private String text;
+    public String text;
+    public String id;
 
     public Label(Location loc, ViewControl viewc) {
         this.setText("?");
-        this.text = loc.id;
+        this.id = loc.id;
+        this.text = loc.name;
         this.x = loc.x_y[0];
         this.y = loc.x_y[1];
 
@@ -37,7 +39,7 @@ public class Label extends Text {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
-                    viewc.handle_click("location",text);
+                    viewc.handle_click("location",id,text);
                 }
             }
         });

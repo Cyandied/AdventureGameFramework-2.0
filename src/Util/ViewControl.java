@@ -17,21 +17,32 @@ public class ViewControl {
         overlay = new Overlays(this);
     }
 
-    public void handle_click(String type, String content) {
-        inc.handle_click_input(type,content);
+    public void handle_click(String type,String id, String content) {
+        inc.handle_click_input(type,id,content);
     }
 
-    public void change_scene(Map map) {
+    public void change_scene(Map map,SQLiteJDBC database) {
         inc.out_field.clear();
-        view_f.set_scene(map.background_file);
+        view_f.set_scene(map.background_file, gm.game);
         overlay.void_arrows();
         overlay.void_labels();
         for(String direction : map.connections_ids.keySet()) {
-            overlay.put_arrow(direction,map.connections_ids.get(direction));
+            boolean place = true;
+            if(!map.connections_ids.get(direction).isEmpty()){
+                if(!database.get_row_from_db("maps",map.connections_ids.get(direction)).get_bool("unlocked")){
+                    place = false;
+                }
+            }
+            if(place){
+                overlay.put_arrow(direction,map.connections_ids.get(direction));
+            }
+            else {
+                overlay.put_arrow(direction,"");
+            }
         }
         if(map.locations != null){
             for(Location location : map.locations) {
-                if (location.shown) {
+                if (location.shown && !location.completed) {
                     overlay.put_label(location);
                 }
             }
