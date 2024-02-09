@@ -3,7 +3,6 @@ package Util;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 public class Map {
 
@@ -25,10 +24,7 @@ public class Map {
         }
         this.id = map.get_string("id");
         flavour = map.get_string("flavour");
-        if(map.get_string("refer_special") != null) {
-            refer_special = map.get_string("refer_special");
-        }
-        else refer_special = null;
+        refer_special = map.get_string("refer_special");
         use_special = map.get_bool("use_special");
         locations = init_locations(map.get_string("locations"),database);
         connections_ids = init_connections(map,database);

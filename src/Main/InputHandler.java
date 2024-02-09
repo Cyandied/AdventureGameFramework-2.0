@@ -3,12 +3,6 @@ package Main;
 import UIelems.InventoryView;
 import Util.*;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
 public class InputHandler {
 
     private SQLiteJDBC database;

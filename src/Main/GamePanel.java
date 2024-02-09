@@ -1,13 +1,9 @@
 package Main;
 
 import UIelems.*;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 
 public class GamePanel extends Pane {
     InputField in;

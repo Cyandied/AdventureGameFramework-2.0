@@ -1,10 +1,8 @@
 package Util;
 
-import UIelems.InventoryView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Font;
 
 public class Item {
