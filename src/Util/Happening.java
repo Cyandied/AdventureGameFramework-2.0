@@ -8,7 +8,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -30,6 +35,8 @@ public class Happening {
     public String code_type;
     public boolean happened;
     public String[] unlock_maps;
+    public String code_params;
+    public String font;
 
     public Happening(SQLiteJDBC database, String id) {
         SQLResult happening = database.get_row_from_db("happening",id);
@@ -60,6 +67,11 @@ public class Happening {
         if(happening.get_string("unlock_maps") != null){
             unlock_maps = happening.get_string("unlock_maps").split(":");
         } else unlock_maps = new String[0];
+        code_params = happening.get_string("code_params");
+        if(code_params != null){
+            code_params = code_params.replace("(n)","\n");
+        }
+        font = database.get_database("meta").get_string("font");
     }
 
     private Item[] init_items(String item_ids, SQLiteJDBC database) {
@@ -126,7 +138,9 @@ public class Happening {
         Stage code_input = new Stage();
         code_input.setTitle("Input code");
         ImageView imgv = new ImageView();
-        TextField txt = new TextField();
+        TextField txt_field = new TextField();
+        Text txt = new Text(code_params);
+        Pane txt_pane = new Pane();
         Pane pane = new Pane();
         try {
             FileInputStream in_stream = new FileInputStream("Res/Global/"+code_type+".png");
@@ -138,17 +152,25 @@ public class Happening {
         }
         imgv.setFitWidth(300);
         imgv.setFitHeight(300);
-        txt.resize(300,30);
+        txt.setWrappingWidth(280);
+        txt.setFill(Paint.valueOf("white"));
+        txt.setFont(new Font(font,20));
+        txt_pane.resize(300,300);
+        txt_pane.getChildren().add(txt);
+        txt_pane.relocate(10,10);
+        txt.relocate(10,10);
+        txt_pane.setStyle("-fx-background-color: rgba(0,0,0,0.75);-fx-border-radius: 40px;-fx-padding: 20px");
+        txt_field.resize(300,30);
         imgv.relocate(10,10);
-        txt.relocate(10,300+20);
+        txt_field.relocate(10,300+20);
         pane.resize(320,300+30+40);
-        pane.getChildren().addAll(imgv,txt);
+        pane.getChildren().addAll(imgv,txt_field,txt_pane);
         code_input.setScene(new Scene(pane,320,300+30+40));
 
-        txt.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        txt_field.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent keyEvent) {
                 if(keyEvent.getCode().equals(KeyCode.ENTER)) {
-                    String text = txt.getText().toLowerCase();
+                    String text = txt_field.getText().toLowerCase();
                     if(text.equals(code_solution)){
                         res[0] = true;
                     }

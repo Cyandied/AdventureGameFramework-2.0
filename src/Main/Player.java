@@ -35,8 +35,8 @@ public class Player {
         database.update_db("meta","start_items",inventory.stream().map(i_2 -> i_2.id).collect(Collectors.joining(":")));
     }
     public void remove_item(Item[] items) {
+        List<String> temp = inventory.stream().map(i -> i.id).toList();
         for(Item item : items) {
-            List<String> temp = inventory.stream().map(i -> i.id).toList();
             int i = temp.indexOf(item.id);
             inventory.remove(i);
         }
