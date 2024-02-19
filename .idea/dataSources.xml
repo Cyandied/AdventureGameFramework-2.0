@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="thebunker" uuid="5c5dab78-1205-40ed-957f-d3b31c7b762b">
+    <data-source source="LOCAL" name="template" uuid="4273a771-6e2e-4c67-a9f9-38c90ea713e9">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Documents2.0\Java\AdventureGameFramework\Res\Games\TheBunker\thebunker.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Thea-\Documents\Java\AdventureGameFramework-2.0\Res\Global\template.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
@@ -13,11 +13,11 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="template" uuid="89da1a68-8215-4f9a-84b4-94d81ee5f27f">
+    <data-source source="LOCAL" name="thebunker" uuid="8e1a99de-8f7c-4955-ae20-62b8f1f4bb9f">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Documents2.0\Java\AdventureGameFramework\Res\Global\template.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Thea-\Documents\Java\AdventureGameFramework-2.0\Res\Games\TheBunker\thebunker.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
@@ -25,11 +25,11 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="tutorial" uuid="cceed206-45e1-4a42-8a79-6a3accd9117d">
+    <data-source source="LOCAL" name="tutorial" uuid="b5d8b9dc-bb33-4622-900d-ff28375c6147">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Documents2.0\Java\AdventureGameFramework\Res\Games\Tutorial\tutorial.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Thea-\Documents\Java\AdventureGameFramework-2.0\Res\Games\Tutorial\tutorial.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

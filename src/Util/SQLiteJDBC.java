@@ -1,5 +1,7 @@
 package Util;
 
+import UIelems.ErrorBox;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -57,7 +59,7 @@ public class SQLiteJDBC {
         }
         catch (Exception e) {
             System.err.println(e + " for query = " + query);
-            System.exit(0);
+            new ErrorBox(e + " for query = " + query);
         }
         return new SQLResult(res);
     }
@@ -70,7 +72,7 @@ public class SQLiteJDBC {
         }
         catch (Exception e) {
             System.err.println(e + " for query = " + query);
-            System.exit(0);
+            new ErrorBox(e + " for query = " + query);
         }
         return new SQLResult(res);
     }

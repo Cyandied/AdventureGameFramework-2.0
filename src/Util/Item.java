@@ -1,5 +1,6 @@
 package Util;
 
+import UIelems.ErrorBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -12,8 +13,8 @@ public class Item {
     public String[] tags;
     public Item(SQLResult item,String id) {
         if(item.get_string("id") == null){
-            System.err.println("Tried to load item that does not exist!\nError encountered with item id: " + id);
-            System.exit(1);
+            String error = "Tried to load item that does not exist!\nError encountered with item id: " + id;
+            new ErrorBox(error);
         }
         this.id = item.get_string("id");
         name = item.get_string("name");

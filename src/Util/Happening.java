@@ -1,6 +1,7 @@
 package Util;
 
 import Main.Player;
+import UIelems.ErrorBox;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -41,8 +42,8 @@ public class Happening {
     public Happening(SQLiteJDBC database, String id) {
         SQLResult happening = database.get_row_from_db("happening",id);
         if(happening.get_string("id") == null){
-            System.err.println("Tried to load happening that does not exist!\nError encountered with happening id: " + id);
-            System.exit(1);
+            String error = "Tried to load happening that does not exist!\nError encountered with happening id: " + id;
+            new ErrorBox(error);
         }
         this.id = happening.get_string("id");
         flavour = happening.get_string("flavour");
@@ -179,6 +180,7 @@ public class Happening {
             }
         });
 
+        code_input.setAlwaysOnTop(true);
         code_input.showAndWait();
         return res[0];
     }

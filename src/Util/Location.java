@@ -1,6 +1,7 @@
 package Util;
 
 import Main.Player;
+import UIelems.ErrorBox;
 
 public class Location {
 
@@ -19,8 +20,8 @@ public class Location {
     public Location(SQLiteJDBC database, String id) {
         SQLResult location = database.get_row_from_db("locations",id);
         if(location.get_string("id") == null){
-            System.err.println("One or more locations referenced in map/locations do NOT exist!\nError encountered with location id: " + id);
-            System.exit(1);
+            String error = "One or more locations referenced in map/locations do NOT exist!\nError encountered with location id: " + id;
+            new ErrorBox(error);
         }
         this.id = location.get_string("id");
         name = location.get_string("name");
